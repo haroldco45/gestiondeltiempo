@@ -3,205 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TimeMaster - Gestión del Tiempo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>TimeMaster Pro - Gestión del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e67e22;
-            --light: #ecf0f1;
-            --success: #27ae60;
-        }
+        :root { --p: #2c3e50; --s: #3498db; --a: #e67e22; --l: #f8f9fa; --success: #27ae60; --danger: #e74c3c; }
+        body { font-family: 'Roboto', sans-serif; background: #ececec; margin: 0; color: var(--p); line-height: 1.6; }
+        .header { background: var(--p); color: white; padding: 3rem 1rem; text-align: center; }
+        .container { max-width: 1000px; margin: -30px auto 50px; padding: 0 15px; }
+        .card { background: white; border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h2 { color: var(--s); border-bottom: 3px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        
+        /* Test Styling */
+        .q-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; }
+        .q-text { flex: 1; padding-right: 20px; font-size: 0.95rem; }
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 140px; }
+        .btn-calc { background: var(--s); color: white; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; width: 100%; margin-top: 20px; font-weight: bold; }
+        #res { display: none; margin-top: 25px; padding: 20px; border-radius: 10px; text-align: center; font-size: 1.2rem; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            color: var(--primary);
-        }
+        /* Methods Styling */
+        .methods-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .method-box { background: var(--l); padding: 20px; border-radius: 10px; border-top: 5px solid var(--a); }
+        .posec-list { list-style: none; padding: 0; }
+        .posec-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
+        .posec-list li::before { content: '→'; position: absolute; left: 0; color: var(--a); font-weight: bold; }
 
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-        }
-
-        h2 { border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
-
-        /* Estilos del Test */
-        .question { margin-bottom: 1.5rem; }
-        select {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .btn {
-            background: var(--secondary);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn:hover { background: #2980b9; }
-
-        /* Estilos de Métodos */
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .method-card {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 5px solid var(--accent);
-        }
-
-        /* Checklist Hábitos */
-        .habit-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        input[type="checkbox"] { margin-right: 15px; transform: scale(1.2); }
-
-        #result-box {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: #e8f4fd;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+        .habit-check { display: block; background: #fff; border: 1px solid #ddd; padding: 12px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .habit-check:hover { background: #f0f7ff; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>TimeMaster App</h1>
-    <p>Educa-Acción: Optimiza tu productividad</p>
-</header>
+<div class="header">
+    <h1>TimeMaster: Educa-Acción</h1>
+    <p>Basado en metodologías profesionales de gestión del tiempo</p>
+</div>
 
 <div class="container">
 
     <div class="card">
-        <h2>TEST #1: Predisposición Mental</h2>
-        <p>Evalúa tu nivel de adicción a la urgencia (1: Casi nunca - 4: Frecuentemente)</p>
-        <div id="test-form">
-            <div class="question">
-                <label>1. ¿Sientes que el tiempo vuela y no logras terminar lo importante?</label>
-                <select class="score">
-                    <option value="1">1 - Casi nunca</option>
-                    <option value="2">2 - A veces</option>
-                    <option value="3">3 - Frecuentemente</option>
-                    <option value="4">4 - Casi siempre</option>
-                </select>
-            </div>
-            <div class="question">
-                <label>2. ¿Postergas tareas difíciles para el final del día?</label>
-                <select class="score">
-                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                </select>
-            </div>
-            <div class="question">
-                <label>3. ¿Te cuesta decir "no" a interrupciones o tareas extras?</label>
-                <select class="score">
-                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                </select>
-            </div>
-            <button class="btn" onclick="calculateScore()">Calcular Resultado</button>
+        <h2>Test #1: ¿Qué tan eficiente eres?</h2>
+        [span_2](start_span)[span_3](start_span)<p>Responde con sinceridad: 1 (Casi nunca), 2 (A veces), 3 (Frecuentemente), 4 (Casi siempre)[span_2](end_span)[span_3](end_span).</p>
+        <div id="test-questions">
+            <div class="q-row"><span class="q-text">1. Cada día dedico un tiempo a planificar mi trabajo.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">2. Cada año me fijo metas específicas y las pongo por escrito.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">3. Diariamente hago una lista de asuntos pendientes y los jerarquizo.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">4. Dedico tiempo a tareas que soy capaz de realizar (no utópicas).</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">5. Llevo una agenda flexible para manejar lo inesperado.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">6. Delego satisfactoriamente buena parte de mis actividades.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">7. Manejo una sola vez la papelería analizándola de inmediato.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">8. Tengo una estrategia diseñada para evitar interrupciones.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">9. Soy capaz de decir "NO" a cosas que interfieren con mi tiempo.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">10. Practico habitualmente la relajación para reducir tensiones.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">11. Llevo trabajo a casa por las tardes o fines de semana.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">12. Llego a posponer las cosas difíciles o aburridas.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+            <div class="q-row"><span class="q-text">13. Siento que tengo un buen control sobre mi tiempo.</span><select class="val"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
         </div>
-        <div id="result-box"></div>
+        <button class="btn-calc" onclick="evaluateTest()">Obtener Mi Diagnóstico</button>
+        <div id="res"></div>
     </div>
 
-    
-
     <div class="card">
-        <h2>Metodologías de Éxito</h2>
+        [span_4](start_span)<h2>Métodos de Gestión[span_4](end_span)</h2>
         <div class="methods-grid">
-            <div class="method-card">
-                <h3>Método POSEC</h3>
-                <p>Priorizar, Organizar, Racionalizar, Economizar y Contribuir.</p>
+            <div class="method-box">
+                <h3>1. POSEC (Jerarquía de necesidades)</h3>
+                <ul class="posec-list">
+                    [span_5](start_span)<li><strong>Priorizar:</strong> Según urgencia e importancia[span_5](end_span).</li>
+                    [span_6](start_span)<li><strong>Organizar:</strong> Crear un plan de acción[span_6](end_span).</li>
+                    [span_7](start_span)<li><strong>Racionalizar:</strong> Hacer lo difícil para bienestar futuro[span_7](end_span).</li>
+                    [span_8](start_span)<li><strong>Economizar:</strong> Tareas no urgentes pero importantes[span_8](end_span).</li>
+                    [span_9](start_span)<li><strong>Contribuir:</strong> Actividades que benefician a otros[span_9](end_span).</li>
+                </ul>
             </div>
-            <div class="method-card">
-                <h3>Efecto Dominó</h3>
-                <p>Identifica la tarea clave que, al ser derribada, facilita todas las demás.</p>
-            </div>
-            <div class="method-card">
-                <h3>Pomodoro</h3>
-                <p>Trabaja 25 min y descansa 5 min. Ideal para mantener el enfoque.</p>
+            <div class="method-box">
+                <h3>2. DOMINÓ (Efecto Física)</h3>
+                [span_10](start_span)<p>Descubre qué actividad puntual simplificará todas las demás[span_10](end_span). [span_11](start_span)Realiza la tarea más complicada primero para que el resto caigan por inercia[span_11](end_span).</p>
+                <h3>3. POMODORO</h3>
+                [span_12](start_span)<p>Trabaja en intervalos de 25 minutos (pomodoros) sin distracciones, con descansos de 5 minutos[span_12](end_span).</p>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h2>7 Buenos Hábitos (Checklist Diario)</h2>
-        <div id="habits">
-            <div class="habit-item"><input type="checkbox"> 1. Decide metas y objetivos claros.</div>
-            <div class="habit-item"><input type="checkbox"> 2. Crea planes y estrategias.</div>
-            <div class="habit-item"><input type="checkbox"> 3. Empieza por lo más importante (Prioridades).</div>
-            <div class="habit-item"><input type="checkbox"> 4. Asigna el tiempo justo y delega.</div>
-            <div class="habit-item"><input type="checkbox"> 5. Sigue tu programa (Ejecución).</div>
-            <div class="habit-item"><input type="checkbox"> 6. Concéntrate en un solo asunto y termínalo.</div>
-            <div class="habit-item"><input type="checkbox"> 7. Hazte la vida más fácil (Simplicidad).</div>
-        </div>
+        <h2>Plan de Educa-Acción</h2>
+        [span_13](start_span)<p>Aplica estos 7 hábitos diarios[span_13](end_span):</p>
+        <label class="habit-check"><input type="checkbox"> 1. Decidir metas y objetivos claros.</label>
+        <label class="habit-check"><input type="checkbox"> 2. Crear planes y estrategias para llegar allí.</label>
+        <label class="habit-check"><input type="checkbox"> 3. Empezar por las prioridades (lo más importante).</label>
+        <label class="habit-check"><input type="checkbox"> 4. Asignar tiempo justo y delegar.</label>
+        <label class="habit-check"><input type="checkbox"> 5. Ejecutar el programa establecido.</label>
+        <label class="habit-check"><input type="checkbox"> 6. Supervisar y terminar un asunto a la vez.</label>
+        <label class="habit-check"><input type="checkbox"> 7. Aplicar el poder de lo simple.</label>
     </div>
 
 </div>
 
 <script>
-    function calculateScore() {
-        const scores = document.querySelectorAll('.score');
-        let total = 0;
-        scores.forEach(s => total += parseInt(s.value));
-        
-        // Multiplicador para simular las 13 preguntas del PDF con solo 3 de ejemplo
-        let simulatedTotal = total * 4; 
-
-        const resultBox = document.getElementById('result-box');
-        resultBox.style.display = 'block';
-
-        let mensaje = "";
-        if(simulatedTotal <= 25) {
-            mensaje = `Puntaje: ${simulatedTotal} - Baja predisposición mental. El paradigma de la urgencia no es un factor crítico.`;
-        } else if(simulatedTotal <= 45) {
-            mensaje = `Puntaje: ${simulatedTotal} - Nivel medio. La urgencia podría ser tu paradigma operacional básico.`;
-        } else {
-            mensaje = `Puntaje: ${simulatedTotal} - ¡Alerta! Alta adicción a la urgencia. Puede ser una adicción peligrosa.`;
-        }
-
-        resultBox.innerHTML = mensaje;
+function evaluateTest() {
+    const vals = document.querySelectorAll('.val');
+    let score = 0;
+    vals.forEach(v => score += parseInt(v.value));
+    
+    const r = document.getElementById('res');
+    r.style.display = 'block';
+    
+    if(score >= 45) {
+        r.style.background = '#d4edda'; r.style.color = '#155724';
+        [span_14](start_span)r.innerHTML = `<strong>Puntaje: ${score} - ¡EXCELENTE!</strong><br>Sigue así, tienes un dominio total de tu tiempo[span_14](end_span).`;
+    } else if(score >= 37) {
+        r.style.background = '#e8f4fd'; r.style.color = '#004085';
+        [span_15](start_span)r.innerHTML = `<strong>Puntaje: ${score} - MUY BIEN</strong><br>Tu gestión es efectiva pero hay margen de optimización[span_15](end_span).`;
+    } else if(score >= 29) {
+        r.style.background = '#fff3cd'; r.style.color = '#856404';
+        [span_16](start_span)r.innerHTML = `<strong>Puntaje: ${score} - BIEN</strong><br>Pero puedes mejorar tus procesos de organización[span_16](end_span).`;
+    } else {
+        r.style.background = '#f8d7da'; r.style.color = '#721c24';
+        r.innerHTML = `<strong>Puntaje: ${score} - ¡CUIDADO!</strong><br>Tienes serios problemas con el tiempo. [span_17](start_span)¡Debes disciplinarte[span_17](end_span)!.`;
     }
+}
 </script>
-
 </body>
 </html>
