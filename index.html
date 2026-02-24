@@ -2,78 +2,185 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>TimeMaster Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeMaster Pro - Gestión del Tiempo</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; color: #333; }
-        .box { background: white; max-width: 600px; margin: auto; padding: 25px; border-radius: 10px; shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1, h2 { color: #1a73e8; }
-        
-        /* Test Estilo Directo */
-        .pregunta { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        select { float: right; }
-        
-        /* Botón y Resultado */
-        .btn { background: #1a73e8; color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        #resultado { display: none; margin-top: 20px; padding: 15px; border-radius: 5px; font-weight: bold; text-align: center; }
-        
-        /* Métodos y Hábitos */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .item { background: #e8f0fe; padding: 10px; border-radius: 5px; font-size: 14px; }
-        .check-list { margin-top: 20px; }
-        .check-list label { display: block; padding: 5px 0; border-bottom: 1px solid #eee; cursor: pointer; }
+        :root {
+            --primary: #1a73e8;
+            --dark: #202124;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --border: #dadce0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .app-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 { color: var(--primary); margin-top: 0; }
+        p.quote { font-style: italic; color: #5f6368; border-left: 4px solid var(--primary); padding-left: 15px; }
+
+        /* Estilo del Test */
+        .test-row {
+            display: grid;
+            grid-template-columns: 1fr 100px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .btn-main {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn-main:hover { background-color: #1557b0; }
+
+        /* Resultados */
+        #resultado-area {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Secciones de Métodos */
+        .methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .method-item {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .method-item h4 { margin: 0 0 10px 0; color: var(--primary); }
+
+        /* Checklist */
+        .habit-list { list-style: none; padding: 0; }
+        .habit-list li {
+            padding: 10px;
+            background: #fff;
+            border: 1px solid var(--border);
+            margin-bottom: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .habit-list input { margin-right: 15px; }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <h1>Gestión del Tiempo</h1>
-    <p><i>"No importa cuántas horas trabajas, sino qué consigues hacer."</i></p>
-
-    <h2>1. Test de Eficiencia</h2>
-    <div id="test">
-        </div>
-    <button class="btn" onclick="analizar()">Calcular Resultado</button>
-    <div id="resultado"></div>
-
-    <h2>2. Métodos Clave</h2>
-    <div class="grid">
-        <div class="item"><b>POSEC:</b> Priorizar, Organizar, Racionalizar.</div>
-        <div class="item"><b>DOMINÓ:</b> Haz lo más difícil primero.</div>
-        <div class="item"><b>POMODORO:</b> 25 min foco / 5 min descanso.</div>
-        <div class="item"><b>LO SIMPLE:</b> Elimina lo innecesario.</div>
+<div class="container">
+    <div class="app-card">
+        <h1>TimeMaster: Gestión Profesional</h1>
+        <p class="quote">"No importa cuántas horas trabajaste, sino lo que conseguiste hacer." — Daniela Luque [cite: 5, 7]</p>
     </div>
 
-    <h2>3. Educa-Acción (Hoy)</h2>
-    <div class="check-list">
-        <label><input type="checkbox"> Definir metas claras</label>
-        <label><input type="checkbox"> Crear plan del día</label>
-        <label><input type="checkbox"> Empezar por prioridades</label>
-        <label><input type="checkbox"> Delegar tareas</label>
-        <label><input type="checkbox"> Terminar lo empezado</label>
+    <div class="app-card">
+        <h2>Test de Adicción a la Urgencia</h2>
+        <p>1: Casi nunca | 2: A veces | 3: Frecuentemente | 4: Casi siempre [cite: 9]</p>
+        <div id="questions-container"></div>
+        <button class="btn-main" onclick="procesarTest()">Obtener Mi Diagnóstico</button>
+        <div id="resultado-area"></div>
+    </div>
+
+    <div class="app-card">
+        <h2>Metodologías de Optimización</h2>
+        <div class="methods-grid">
+            <div class="method-item">
+                <h4>Método POSEC</h4>
+                <small>Priorizar, Organizar, Racionalizar, Economizar y Contribuir.</small>
+            </div>
+            <div class="method-item">
+                <h4>Efecto Dominó</h4>
+                <small>Identifica la tarea clave que facilita todas las demás.</small>
+            </div>
+        </div>
+        <div class="methods-grid">
+            <div class="method-item">
+                <h4>Pomodoro</h4>
+                <small>Ciclos de 25 min de foco y 5 min de descanso.</small>
+            </div>
+            <div class="method-item">
+                <h4>Poder de lo Simple</h4>
+                <small>Eliminar lo innecesario para ganar efectividad.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2>7 Buenos Hábitos (Educa-Acción)</h2>
+        <ul class="habit-list">
+            <li><input type="checkbox"> 1. Decide metas y objetivos claros [cite: 39]</li>
+            <li><input type="checkbox"> 2. Crea planes y estrategias [cite: 39]</li>
+            <li><input type="checkbox"> 3. Empieza por las prioridades [cite: 39]</li>
+            <li><input type="checkbox"> 4. Asigna el tiempo justo y delega [cite: 39]</li>
+            <li><input type="checkbox"> 5. Sigue tu programa (Ejecución) [cite: 39]</li>
+            <li><input type="checkbox"> 6. Concéntrate en un solo asunto y termínalo [cite: 39]</li>
+            <li><input type="checkbox"> 7. Aplica el poder de lo simple [cite: 39]</li>
+        </ul>
     </div>
 </div>
 
 <script>
     const preguntas = [
-        "Planifico mi trabajo diario",
-        "Tengo metas anuales escritas",
-        "Hago lista de pendientes diaria",
-        "Me fijo metas realistas",
-        "Manejo agenda flexible",
-        "Delego actividades",
-        "Atiendo la papelería de inmediato",
-        "Evito interrupciones",
-        "Sé decir NO",
-        "Practico la relajación",
-        "No llevo trabajo a casa",
-        "No postergo lo aburrido",
-        "Siento que controlo mi tiempo"
+        "Dedico un tiempo diario a planificar mi trabajo [cite: 9]",
+        "Fijo metas específicas anuales por escrito [cite: 10]",
+        "Hago lista de pendientes y los jerarquizo diariamente [cite: 11]",
+        "Dedico tiempo a tareas realistas (no utópicas) [cite: 12]",
+        "Llevo una agenda flexible para lo inesperado [cite: 13]",
+        "Delego satisfactoriamente mis actividades [cite: 14]",
+        "Analizo y decido sobre la papelería de inmediato [cite: 15]",
+        "Tengo una estrategia para evitar interrupciones [cite: 16]",
+        "Sé decir 'NO' cuando algo interfiere con mis pendientes [cite: 16]",
+        "Practico la relajación para reducir tensiones [cite: 16]",
+        "Evito llevar trabajo a casa fines de semana [cite: 17]",
+        "No pospongo las cosas difíciles o aburridas [cite: 17]",
+        "Siento que tengo un buen control de mi tiempo [cite: 17]"
     ];
 
-    const contenedor = document.getElementById('test');
+    const container = document.getElementById('questions-container');
     preguntas.forEach((p, i) => {
-        contenedor.innerHTML += `
-            <div class="pregunta">
+        container.innerHTML += `
+            <div class="test-row">
                 <span>${i+1}. ${p}</span>
                 <select class="puntos">
                     <option value="1">1</option><option value="2">2</option>
@@ -82,20 +189,29 @@
             </div>`;
     });
 
-    function analizar() {
-        let suma = 0;
-        document.querySelectorAll('.puntos').forEach(s => suma += parseInt(s.value));
+    function procesarTest() {
+        let total = 0;
+        document.querySelectorAll('.puntos').forEach(s => total += parseInt(s.value));
         
-        const r = document.getElementById('resultado');
-        r.style.display = 'block';
+        const area = document.getElementById('resultado-area');
+        area.style.display = 'block';
         
-        if (suma >= 46) {
-            r.style.background = '#c6f6d5'; r.innerText = `Puntos: ${suma} - ¡Excelente control!`;
-        } else if (suma >= 26) {
-            r.style.background = '#bee3f8'; r.innerText = `Puntos: ${suma} - Nivel medio. Puedes mejorar.`;
+        let msg = "";
+        let color = "";
+
+        if (total <= 25) {
+            msg = `Puntaje: ${total} - Baja predisposición mental. El paradigma de la urgencia no es significativo en tu vida.`;
+            color = "#d1e7dd";
+        } else if (total <= 45) {
+            msg = `Puntaje: ${total} - Nivel medio. Existe la posibilidad de que la urgencia sea tu paradigma básico.`;
+            color = "#fff3cd";
         } else {
-            r.style.background = '#fed7d7'; r.innerText = `Puntos: ${suma} - ¡Peligro! Adicción a la urgencia.`;
+            msg = `Puntaje: ${total} - Alta/Adicción a la urgencia. La urgencia puede ser una peligrosa adicción.`;
+            color = "#f8d7da";
         }
+
+        area.innerText = msg;
+        area.style.backgroundColor = color;
     }
 </script>
 
