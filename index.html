@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeMaster - Gestión del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e67e22;
+            --light: #ecf0f1;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 { border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
+
+        /* Estilos del Test */
+        .question { margin-bottom: 1.5rem; }
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #2980b9; }
+
+        /* Estilos de Métodos */
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .method-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+        }
+
+        /* Checklist Hábitos */
+        .habit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"] { margin-right: 15px; transform: scale(1.2); }
+
+        #result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TimeMaster App</h1>
+    <p>Educa-Acción: Optimiza tu productividad</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>TEST #1: Predisposición Mental</h2>
+        <p>Evalúa tu nivel de adicción a la urgencia (1: Casi nunca - 4: Frecuentemente)</p>
+        <div id="test-form">
+            <div class="question">
+                <label>1. ¿Sientes que el tiempo vuela y no logras terminar lo importante?</label>
+                <select class="score">
+                    <option value="1">1 - Casi nunca</option>
+                    <option value="2">2 - A veces</option>
+                    <option value="3">3 - Frecuentemente</option>
+                    <option value="4">4 - Casi siempre</option>
+                </select>
+            </div>
+            <div class="question">
+                <label>2. ¿Postergas tareas difíciles para el final del día?</label>
+                <select class="score">
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                </select>
+            </div>
+            <div class="question">
+                <label>3. ¿Te cuesta decir "no" a interrupciones o tareas extras?</label>
+                <select class="score">
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                </select>
+            </div>
+            <button class="btn" onclick="calculateScore()">Calcular Resultado</button>
+        </div>
+        <div id="result-box"></div>
+    </div>
+
+    
+
+    <div class="card">
+        <h2>Metodologías de Éxito</h2>
+        <div class="methods-grid">
+            <div class="method-card">
+                <h3>Método POSEC</h3>
+                <p>Priorizar, Organizar, Racionalizar, Economizar y Contribuir.</p>
+            </div>
+            <div class="method-card">
+                <h3>Efecto Dominó</h3>
+                <p>Identifica la tarea clave que, al ser derribada, facilita todas las demás.</p>
+            </div>
+            <div class="method-card">
+                <h3>Pomodoro</h3>
+                <p>Trabaja 25 min y descansa 5 min. Ideal para mantener el enfoque.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>7 Buenos Hábitos (Checklist Diario)</h2>
+        <div id="habits">
+            <div class="habit-item"><input type="checkbox"> 1. Decide metas y objetivos claros.</div>
+            <div class="habit-item"><input type="checkbox"> 2. Crea planes y estrategias.</div>
+            <div class="habit-item"><input type="checkbox"> 3. Empieza por lo más importante (Prioridades).</div>
+            <div class="habit-item"><input type="checkbox"> 4. Asigna el tiempo justo y delega.</div>
+            <div class="habit-item"><input type="checkbox"> 5. Sigue tu programa (Ejecución).</div>
+            <div class="habit-item"><input type="checkbox"> 6. Concéntrate en un solo asunto y termínalo.</div>
+            <div class="habit-item"><input type="checkbox"> 7. Hazte la vida más fácil (Simplicidad).</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function calculateScore() {
+        const scores = document.querySelectorAll('.score');
+        let total = 0;
+        scores.forEach(s => total += parseInt(s.value));
+        
+        // Multiplicador para simular las 13 preguntas del PDF con solo 3 de ejemplo
+        let simulatedTotal = total * 4; 
+
+        const resultBox = document.getElementById('result-box');
+        resultBox.style.display = 'block';
+
+        let mensaje = "";
+        if(simulatedTotal <= 25) {
+            mensaje = `Puntaje: ${simulatedTotal} - Baja predisposición mental. El paradigma de la urgencia no es un factor crítico.`;
+        } else if(simulatedTotal <= 45) {
+            mensaje = `Puntaje: ${simulatedTotal} - Nivel medio. La urgencia podría ser tu paradigma operacional básico.`;
+        } else {
+            mensaje = `Puntaje: ${simulatedTotal} - ¡Alerta! Alta adicción a la urgencia. Puede ser una adicción peligrosa.`;
+        }
+
+        resultBox.innerHTML = mensaje;
+    }
+</script>
+
+</body>
+</html>
